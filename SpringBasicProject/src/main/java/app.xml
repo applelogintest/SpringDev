@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 클래스 (관리할 클래스 등록) 
+		클래스 등록<bean>, 패키지단위<context:component-scan>
+	
+	스프링에 등록해서 사용하는 클래스
+		1. DAO,Manager,Model ...
+		2. VO(DTO) => 일반 데이터형 (등록하지 않는다)
+		   =======
+		   	  int, double ..
+	-->
+	<!--
+		DI(의존성 주입) Dependencies Injection
+		  ==========
+		   1) property DI
+		   2) constructor DI
+		   3) method DI 
+		 
+		자동 -> 자동 로그인
+	 -->
+	<bean id="sa" class="com.sist.spring.Sawon" scope="singleton" init-method="display">
+		<property name="sabun" value="1"></property>
+		<property name="name" value="홍길동"></property>
+		<property name="dept" value="개발부"></property>
+	</bean>
+	
+	<bean id="sa1" class="com.sist.spring.Sawon" scope="singleton">
+		<property name="sabun"><value>2</value></property>
+		<property name="name"><value>심청이</value></property>
+		<property name="dept"><value>영업부</value></property>
+	</bean>
+	
+	<!-- 선호도 1위 -->
+	<bean id="sa2" class="com.sist.spring.Sawon"
+		p:sabun="3"
+		p:name="춘향이"
+		p:dept="기획부"
+	/>
+	
+	<!-- 매개변수가 있는 생성자  
+		Sawon sa3=new Sawon()
+		index 안써도 적용이됨 순서대로 적용이되기 때문에
+		public Sawon(int sabun, String name, String dept) {
+	-->
+	<bean id="sa3" class="com.sist.spring.Sawon">
+		<constructor-arg value="1" index="0"/>
+		<constructor-arg value="박문수" index="1"/>
+		<constructor-arg value="자재부" index="2"/>
+	</bean>
+	
+	<bean id="sa4" class="com.sist.spring.Sawon"
+		c:sabun="2" 
+		c:name="이순신"
+		c:dept="총무부"
+	/>
+	
+	<bean id="sa5" class="com.sist.spring.Sawon"
+		c:_0="3"
+		c:_1="강감찬"
+		c:_2="교육부"
+	/>
+		
+</beans>
